@@ -37,7 +37,7 @@ Inherits IOSApplication
 			  setIdleTimerDisabled(zSharedApplicationInstance, value)
 			End Set
 		#tag EndSetter
-		IdleTimerActive As Boolean
+		IsIdleTimerDisabled As Boolean
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -55,7 +55,7 @@ Inherits IOSApplication
 			  setNetworkActivity(zSharedApplicationInstance, value)
 			End Set
 		#tag EndSetter
-		NetworkActivityVisible As Boolean
+		IsNetworkActivityVisible As Boolean
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21
@@ -65,12 +65,12 @@ Inherits IOSApplication
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="NetworkActivityVisible"
+			Name="IsNetworkActivityVisible"
 			Group="Behavior"
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="IdleTimerActive"
+			Name="IsIdleTimerDisabled"
 			Group="Behavior"
 			Type="Boolean"
 		#tag EndViewProperty
