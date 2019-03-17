@@ -9,13 +9,13 @@ Begin iosView ApplicationView
    TabTitle        =   ""
    Title           =   ""
    Top             =   0
-   Begin iOSButton Button1
+   Begin iOSButton ButtonSetActivity
       AccessibilityHint=   ""
       AccessibilityLabel=   ""
-      AutoLayout      =   Button1, 7, , 0, False, +1.00, 4, 1, 280, , True
-      AutoLayout      =   Button1, 9, <Parent>, 9, False, +1.00, 4, 1, 0, , True
-      AutoLayout      =   Button1, 8, , 0, False, +1.00, 4, 1, 30, , True
-      AutoLayout      =   Button1, 10, <Parent>, 10, False, +1.00, 4, 1, -142, , True
+      AutoLayout      =   ButtonSetActivity, 7, , 0, False, +1.00, 4, 1, 280, , True
+      AutoLayout      =   ButtonSetActivity, 9, <Parent>, 9, False, +1.00, 4, 1, 0, , True
+      AutoLayout      =   ButtonSetActivity, 8, , 0, False, +1.00, 4, 1, 30, , True
+      AutoLayout      =   ButtonSetActivity, 10, <Parent>, 10, False, +1.00, 4, 1, -142, , True
       Caption         =   "Acivity Invisible "
       Enabled         =   True
       Height          =   30.0
@@ -29,13 +29,13 @@ Begin iosView ApplicationView
       Visible         =   True
       Width           =   280.0
    End
-   Begin iOSButton Button2
+   Begin iOSButton ButtonGetActivity
       AccessibilityHint=   ""
       AccessibilityLabel=   ""
-      AutoLayout      =   Button2, 1, <Parent>, 1, False, +1.00, 4, 1, 20, , True
-      AutoLayout      =   Button2, 7, , 0, False, +1.00, 4, 1, 280, , True
-      AutoLayout      =   Button2, 3, Button1, 4, False, +1.00, 4, 1, *kStdControlGapV, , True
-      AutoLayout      =   Button2, 8, , 0, False, +1.00, 4, 1, 30, , True
+      AutoLayout      =   ButtonGetActivity, 1, <Parent>, 1, False, +1.00, 4, 1, 20, , True
+      AutoLayout      =   ButtonGetActivity, 7, , 0, False, +1.00, 4, 1, 280, , True
+      AutoLayout      =   ButtonGetActivity, 3, ButtonSetActivity, 4, False, +1.00, 4, 1, *kStdControlGapV, , True
+      AutoLayout      =   ButtonGetActivity, 8, , 0, False, +1.00, 4, 1, 30, , True
       Caption         =   "Get Activity state"
       Enabled         =   True
       Height          =   30.0
@@ -49,13 +49,13 @@ Begin iosView ApplicationView
       Visible         =   True
       Width           =   280.0
    End
-   Begin iOSButton Button3
+   Begin iOSButton ButtonSetIdleTimer
       AccessibilityHint=   ""
       AccessibilityLabel=   ""
-      AutoLayout      =   Button3, 1, Button2, 1, False, +1.00, 4, 1, 0, , True
-      AutoLayout      =   Button3, 7, , 0, False, +1.00, 4, 1, 280, , True
-      AutoLayout      =   Button3, 3, <Parent>, 3, False, +1.00, 4, 1, 202, , True
-      AutoLayout      =   Button3, 8, , 0, False, +1.00, 4, 1, 30, , True
+      AutoLayout      =   ButtonSetIdleTimer, 1, ButtonGetActivity, 1, False, +1.00, 4, 1, 0, , True
+      AutoLayout      =   ButtonSetIdleTimer, 7, , 0, False, +1.00, 4, 1, 280, , True
+      AutoLayout      =   ButtonSetIdleTimer, 3, <Parent>, 3, False, +1.00, 4, 1, 202, , True
+      AutoLayout      =   ButtonSetIdleTimer, 8, , 0, False, +1.00, 4, 1, 30, , True
       Caption         =   "Idletimer Enabled"
       Enabled         =   True
       Height          =   30.0
@@ -69,14 +69,14 @@ Begin iosView ApplicationView
       Visible         =   True
       Width           =   280.0
    End
-   Begin iOSButton Button4
+   Begin iOSButton ButtonGetIdleTimer
       AccessibilityHint=   ""
       AccessibilityLabel=   ""
-      AutoLayout      =   Button4, 1, Button3, 1, False, +1.00, 4, 1, 0, , True
-      AutoLayout      =   Button4, 7, , 0, False, +1.00, 4, 1, 280, , True
-      AutoLayout      =   Button4, 3, Button3, 4, False, +1.00, 4, 1, *kStdControlGapV, , True
-      AutoLayout      =   Button4, 8, , 0, False, +1.00, 4, 1, 30, , True
-      Caption         =   "Get Activity state"
+      AutoLayout      =   ButtonGetIdleTimer, 1, ButtonSetIdleTimer, 1, False, +1.00, 4, 1, 0, , True
+      AutoLayout      =   ButtonGetIdleTimer, 7, , 0, False, +1.00, 4, 1, 280, , True
+      AutoLayout      =   ButtonGetIdleTimer, 3, ButtonSetIdleTimer, 4, False, +1.00, 4, 1, *kStdControlGapV, , True
+      AutoLayout      =   ButtonGetIdleTimer, 8, , 0, False, +1.00, 4, 1, 30, , True
+      Caption         =   "Get Idletimer state"
       Enabled         =   True
       Height          =   30.0
       Left            =   20
@@ -102,18 +102,18 @@ End
 
 #tag EndWindowCode
 
-#tag Events Button1
+#tag Events ButtonSetActivity
 	#tag Event
 		Sub Action()
 		  If Me.Caption = "Acivity Visible" Then
 		    
-		    App.NetworkActivityVisible = False
+		    App.IsNetworkActivityVisible = False
 		    
 		    Me.Caption = "Acivity Invisible" 
 		    
 		  Else
 		    
-		    App.NetworkActivityVisible = True
+		    App.IsNetworkActivityVisible = True
 		    
 		    Me.Caption = "Acivity Visible" 
 		    
@@ -123,32 +123,36 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events Button2
+#tag Events ButtonGetActivity
 	#tag Event
 		Sub Action()
 		  Const default_state = "Get Activity state: "
 		  
 		   
-		  If App.NetworkActivityVisible = True Then
+		  If App.IsNetworkActivityVisible = True Then
+		    
 		    Me.Caption = default_state + "True"
+		    
 		  Else
+		    
 		    Me.Caption = default_state + "False"
+		    
 		  End If
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events Button3
+#tag Events ButtonSetIdleTimer
 	#tag Event
 		Sub Action()
 		  If Me.Caption = "Idletimer Enabled" Then
 		    
-		    App.IdleTimerActive = False
+		    App.IsIdleTimerDisabled = False
 		    
 		    Me.Caption = "Idletimer Disabled" 
 		    
 		  Else
 		    
-		    App.IdleTimerActive = True
+		    App.IsIdleTimerDisabled = True
 		    
 		    Me.Caption = "Idletimer Enabled"
 		    
@@ -158,15 +162,19 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events Button4
+#tag Events ButtonGetIdleTimer
 	#tag Event
 		Sub Action()
 		  Const default_state = "Idletimer enabled: "
 		  
-		  If App.IdleTimerActive = True Then
+		  If App.IsIdleTimerDisabled = True Then
+		    
 		    Me.Caption = default_state + "True"
+		    
 		  Else
+		    
 		    Me.Caption = default_state + "False"
+		    
 		  End If
 		End Sub
 	#tag EndEvent
